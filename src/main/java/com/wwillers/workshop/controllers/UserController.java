@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.wwillers.workshop.domain.Post;
 import com.wwillers.workshop.domain.User;
 import com.wwillers.workshop.dto.UserDTO;
 import com.wwillers.workshop.services.UserService;
@@ -61,6 +62,12 @@ public class UserController {
     userObj.setId(id);
     userObj = service.update(userObj);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping(value = "/{id}/posts")
+  public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+    User userObj = service.findById(id);
+    return ResponseEntity.ok().body(userObj.getPosts());
   }
 
 }
